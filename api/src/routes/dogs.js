@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
 const { API_KEY} = process.env;
+const { Dog, Temperament } = require('../db');
 
 /*
 GET /dogs:
@@ -17,7 +18,6 @@ Si no existe ninguna raza de perro mostrar un mensaje adecuado
 router.get('/', async (req, res) =>{
 
     let {name} = req.query;
-    console.log('SOY EL NAME: ', name)
 
     if(!name){
         try{
@@ -28,10 +28,23 @@ router.get('/', async (req, res) =>{
                     img: e.image.url,
                     name: e.name,
                     temperament: e.temperament,
-                    // weight: e.weight
+                    weight: e.weight
                 }
             })
-            res.send(breeds)
+
+            const breedsDB = await Dog.findAll({
+                include: {
+                    model: Temperament,
+                    attributes: ['name'],
+                    through: {
+                        attributes: [],
+                    },
+                }
+            });
+
+            console.log(breedsDB)
+            const allBreeds = [...breeds,...breedsDB]
+            res.send(allBreeds)
         }
         catch(e){
             console.log('Error',e)
@@ -47,13 +60,43 @@ router.get('/', async (req, res) =>{
                         img: e.image.url,
                         name: e.name,
                         temperament: e.temperament,
-                        // weight: e.weight
+                        weight: e.weight
                     })
                 }
             });
             if (breeds.length>0){
-                res.send(breeds)
-            }else res.status(404).send(`No results found four your search (${name})`)
+                const breedsDB = await Dog.findAll({
+                    include: {
+                        model: Temperament,
+                        attributes: ['name'],
+                        through: {
+                            attributes: [],
+                        },
+                    },
+                    where: {
+                        name: name
+                    }
+                });
+                let allBreeds = [...breeds,...breedsDB]
+                return res.send(allBreeds)
+            }else {
+                const breedsDB = await Dog.findAll({
+                    include: {
+                        model: Temperament,
+                        attributes: ['name'],
+                        through: {
+                            attributes: [],
+                        },
+                    },
+                    where: {
+                        name: name
+                    }
+                });
+                if(breedsDB){
+                    res.send(breedsDB)
+                }
+                else return res.status(404).send(`No results found four your search (${name})`)
+            }
         }
         catch(e){
             console.log('Error',e)
@@ -70,20 +113,45 @@ Incluir los temperamentos asociados
 
 router.get('/:idBreed', async (req, res) =>{
     let {idBreed} = req.params;
-
     if(idBreed){
         try{
             const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
 
-            const result = apiResult.data.filter(e => e.id === Number(idBreed));
-            if(result) return res.send(result)
-            else return res.status(404).send(`No results found four your search (${idBreed})`)
+            const result = apiResult.data.find(e => e.id === Number(idBreed));
+            if(result){
+                return res.send({
+                    img: result.image.url,
+                    name: result.name,
+                    temperament: result.temperament,
+                    weight: result.weight,
+                    height: result.height,
+                    age: result.life_span
+                })
+            } 
+            else {
+                try{
+                    const result = await Dog.findByPk(idBreed , {include: Temperament})
+                    if(result){
+                        return res.send({
+                            img: result.image.url,
+                            name: result.name,
+                            temperament: result.temperament,
+                            weight: result.weight,
+                            height: result.height,
+                            age: result.life_span
+                        })
+                    }
+                }
+                catch(e){
+                    return res.status(404).send(`No dog founded for id: ${idBreed}`)
+                }
+            }
         }
         catch(e){
-            console.log('Error',e)
+            res.status(404).send(e)
         }
     }else{
-        res.status(404).send(`No results found four your search (${idBreed})`)
+        res.status(404).send(`Error , ${idBreed}`)
     }
 });
 

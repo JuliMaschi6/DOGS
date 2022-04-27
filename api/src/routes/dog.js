@@ -7,34 +7,44 @@ Recibe los datos recolectados desde el formulario controlado de la ruta de creac
 Crea una raza de perro en la base de datos
 */
 
-router.post('/dog', async (req, res) =>{
+router.post('/', async (req, res) =>{
 
     let {name, height, weight, age, temperaments} = req.body;
 
     if(!name || !height || !weight){
-        throw new Error('Necessary data missing')
+        res.send('Necessary data missing')
     }
     else{
-        const [dog,created] = await Dog.findOrCreate({
-            where: {
-              name,
-              height,
-              weight,
-              age
-            }
-        });
-
-        if(temperaments){
-            temperaments.forEach(async e => {
-                const temper = await Temperament.create({
-                    name: e
-                })
+        try{
+            const [dog,created] = await Dog.findOrCreate({
+                where: {
+                  name,
+                  height,
+                  weight,
+                  age
+                }
             });
-            await dog.setTemperaments(temper);
+    
+            if(temperaments){
+                temperaments.forEach(async e => {
+                    const [temper , created] = await Temperament.findOrCreate({
+                        where: {
+                            name: e
+                        }
+                    })
+                    await temper.addDog(dog);
+                    await dog.addTemperaments(temper);
+                });
+            }
+            res.send('Dog created!')
         }
-        res.send('Dog created!')
+        catch(e){
+            console.log('ERROR!!: ',e)
+        }
     }
 });
+
+
 
 
 module.exports = router;

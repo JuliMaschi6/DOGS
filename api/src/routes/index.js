@@ -5,7 +5,6 @@ const dogRouter = require('./dog');
 const dogsRouter = require('./dogs');
 const tempRouter = require('./temperament');
 
-
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
