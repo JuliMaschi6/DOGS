@@ -28,7 +28,7 @@ router.get('/', async (req, res) =>{
                     img: e.image.url,
                     name: e.name,
                     temperament: e.temperament,
-                    weight: e.weight
+                    weight: e.weight.metric
                 }
             })
 
@@ -60,7 +60,7 @@ router.get('/', async (req, res) =>{
                         img: e.image.url,
                         name: e.name,
                         temperament: e.temperament,
-                        weight: e.weight
+                        weight: e.weight.metric
                     })
                 }
             });
@@ -123,8 +123,8 @@ router.get('/:idBreed', async (req, res) =>{
                     img: result.image.url,
                     name: result.name,
                     temperament: result.temperament,
-                    weight: result.weight,
-                    height: result.height,
+                    weight: result.weight.metric,
+                    height: result.height.metric,
                     age: result.life_span
                 })
             } 
