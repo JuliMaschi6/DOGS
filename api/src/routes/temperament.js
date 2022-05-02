@@ -30,13 +30,14 @@ async function getTemperaments(){
 router.get('/', async (req, res) =>{
     let temperaments = await getTemperaments();
    
-    temperaments.forEach((element) => {
+    temperaments.sort().forEach((element) => {
         Temperament.findOrCreate({
             where: { name: element },
         });
     });
 
-    const t = await Temperament.findAll()
+    let t = await Temperament.findAll()
+    const first = t.shift();
 
     res.send(t)
 });

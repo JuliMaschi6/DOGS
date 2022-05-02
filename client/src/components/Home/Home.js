@@ -1,5 +1,7 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import SearchBar from "../SearchBar/SearchBar";
+import { findBreedByName } from "../../actions/index";
 
 import './Home.css'
 
@@ -7,11 +9,8 @@ export default function mainRoute(){
 
     return (
         <div>
-            <header>
-                <input placeholder="enter a breed"></input>
-            </header>
             <div>
-                <h1>MANY BREEDS HERE</h1>
+            <span className='searchBar'><SearchBar onSearch={findBreedByName}/></span>
             </div>
         </div>
     )

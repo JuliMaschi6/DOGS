@@ -25,6 +25,7 @@ router.get('/', async (req, res) =>{
 
             const breeds = apiResult.data.map(e => {
                 return {
+                    id: e.id,
                     img: e.image.url,
                     name: e.name,
                     temperament: e.temperament,
@@ -42,7 +43,7 @@ router.get('/', async (req, res) =>{
                 }
             });
 
-            console.log(breedsDB)
+            // console.log(breedsDB)
             const allBreeds = [...breeds,...breedsDB]
             res.send(allBreeds)
         }
@@ -57,6 +58,7 @@ router.get('/', async (req, res) =>{
             apiResult.data.forEach(e => {
                 if(e.name.toLowerCase().includes(name.toLowerCase())){
                     breeds.push({
+                        id: e.id,
                         img: e.image.url,
                         name: e.name,
                         temperament: e.temperament,
@@ -111,15 +113,17 @@ Debe traer solo los datos pedidos en la ruta de detalle de raza de perro
 Incluir los temperamentos asociados
 */
 
-router.get('/:idBreed', async (req, res) =>{
-    let {idBreed} = req.params;
-    if(idBreed){
+router.get('/:id', async (req, res) =>{
+    let {id} = req.params;
+    // console.log('SOY EL ID: ',id)
+    if(id){
         try{
             const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
 
-            const result = apiResult.data.find(e => e.id === Number(idBreed));
+            const result = apiResult.data.find(e => e.id === Number(id));
             if(result){
                 return res.send({
+                    id: result.id,
                     img: result.image.url,
                     name: result.name,
                     temperament: result.temperament,
@@ -130,9 +134,10 @@ router.get('/:idBreed', async (req, res) =>{
             } 
             else {
                 try{
-                    const result = await Dog.findByPk(idBreed , {include: Temperament})
+                    const result = await Dog.findByPk(id , {include: Temperament})
                     if(result){
                         return res.send({
+                            id: result.id,
                             img: result.image.url,
                             name: result.name,
                             temperament: result.temperament,
@@ -143,7 +148,7 @@ router.get('/:idBreed', async (req, res) =>{
                     }
                 }
                 catch(e){
-                    return res.status(404).send(`No dog founded for id: ${idBreed}`)
+                    return res.status(404).send(`No dog founded for id ${id}`)
                 }
             }
         }
@@ -151,7 +156,7 @@ router.get('/:idBreed', async (req, res) =>{
             res.status(404).send(e)
         }
     }else{
-        res.status(404).send(`Error , ${idBreed}`)
+        res.status(404).send(`Error , ${id}`)
     }
 });
 

@@ -11,7 +11,7 @@ const {
     ORDER_ZA,
     ORDER_WEIGHT_ASC,
     ORDER_WEIGHT_DESC
-} = require('../action-types');
+} = require('../actions-types/index');
 
 
 export function getAllBreeds() {
@@ -26,7 +26,7 @@ export function getAllBreeds() {
 
 export function getAllTemperaments() {
     return async function (dispatch) {
-        const results = await axios.get('http://localhost:3001/temperaments');
+        const results = await axios.get('http://localhost:3001/temperament');
         dispatch({
             type: GET_ALL_TEMPERAMENTS,
             payload: results.data
@@ -34,9 +34,9 @@ export function getAllTemperaments() {
     }
 };
 
-export function findBreedsByName(value) {
+export function findBreedByName(value) {
     return async function (dispatch) {
-        const results = await axios.get(`http://localhost:3001/dogs/${value}`);
+        const results = await axios.get(`http://localhost:3001/dogs?name=${value}`);
         dispatch({
             type: FIND_BREED_NAME,
             payload: results.data
@@ -45,6 +45,7 @@ export function findBreedsByName(value) {
 };
 
 export function getBreedDetail(id) {
+    // console.log('soy el id en las actions ',id)
     return async function (dispatch) {
         try{
             const results = await axios.get(`http://localhost:3001/dogs/${id}`);
