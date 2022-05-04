@@ -9,9 +9,9 @@ Crea una raza de perro en la base de datos
 
 router.post('/', async (req, res) =>{
 
-    let {img, name, height, weight, age, temperaments} = req.body;
+    let {img, name, minHeight, maxHeight, minWeight, maxWeight, minAge, maxAge, temperaments} = req.body;
 
-    if(!name || !height || !weight){
+    if(!name || !minHeight || !maxHeight || !minWeight || !maxWeight){
         res.send('Necessary data missing')
     }
     else{
@@ -20,9 +20,9 @@ router.post('/', async (req, res) =>{
                 where: {
                   img,
                   name,
-                  height,
-                  weight,
-                  age
+                  height: `${minHeight} - ${maxHeight}` ,
+                  weight: `${minWeight} - ${maxWeight}`,
+                  age: `${minAge} - ${maxAge}`
                 }
             });
     

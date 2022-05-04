@@ -12,6 +12,7 @@ const { GET_ALL_BREEDS,
 
 const initialState = {
     breeds: [],
+    // oneTypeBreed: [],
     temperaments: [],
     breedDetail: {},
 };
@@ -39,7 +40,7 @@ function rootReducer(state = initialState, action) {
         case CREATE_BREED:
           return{
               ...state,
-              breeds: [...state.products , action.payload]
+              breeds: [...state.breeds , action.payload]
           }
     
         case FIND_BREED_NAME:

@@ -26,21 +26,20 @@ export class SearchBar extends Component {
       const { name } = this.state;
       return (
         <div>
-          <h2>Enter your breed name: </h2>
           <form className="form-container" onSubmit={(e) =>this.handleSubmit(e)}>
             <div>
-              <label className="label"> Breed: </label>
               <input
                 type="text"
                 id="name"
                 autoComplete="off"
+                placeholder="Enter yout breed name..."
                 value={name}
                 onChange={(e) => this.handleChange(e)}
               />
+              <button type="submit">Search</button>
             </div>
-            <button type="submit">Search</button>
           </form>
-          <ul>
+          {/* <ul>
            {
             this.props.breeds?.map(b =>
                <div className="buscador" key={b.id}>
@@ -49,7 +48,7 @@ export class SearchBar extends Component {
                  </Link>
               </div>)
            }
-          </ul>
+          </ul> */}
         </div>
       );
     }
@@ -63,13 +62,11 @@ export class SearchBar extends Component {
   
   function mapDispatchToProps(dispatch) {
     return {
-        findBreedByName: name => dispatch(findBreedByName(name)),
-        // addMovieFavorite: movie => dispatch(addMovieFavorite(movie))
+        findBreedByName: name => dispatch(findBreedByName(name))
     };
   }
   
   export default connect(
     mapStateToProps,
     mapDispatchToProps
-    // { getMovies , addMovieFavorite }
   )(SearchBar);
