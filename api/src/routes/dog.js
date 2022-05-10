@@ -9,26 +9,24 @@ Crea una raza de perro en la base de datos
 
 router.post('/', async (req, res) =>{
 
-    let {img, name, minHeight, maxHeight, minWeight, maxWeight, minAge, maxAge, temperaments} = req.body;
+    let {img, name, minHeight, maxHeight, minWeight, maxWeight, minAge, maxAge, temperament} = req.body;
 
-    if(!name || !minHeight || !maxHeight || !minWeight || !maxWeight){
+    if(!name || !minHeight || !maxHeight || !minWeight || !maxWeight || !img){
         res.send('Necessary data missing')
     }
     else{
         try{
-            const [dog,created] = await Dog.findOrCreate({
-                where: {
-                  img,
-                  name,
-                  height: `${minHeight} - ${maxHeight}` ,
-                  weight: `${minWeight} - ${maxWeight}`,
-                  age: `${minAge} - ${maxAge}`
-                }
+            const dog = await Dog.create({
+                img: img,
+                name: name,
+                height: `${minHeight} - ${maxHeight}` ,
+                weight: `${minWeight} - ${maxWeight}`,
+                age: `${minAge} - ${maxAge}`,
             });
-    
-            if(temperaments){
-                temperaments.forEach(async e => {
-                    const [temper , created] = await Temperament.findOrCreate({
+            
+            if(temperament){
+                temperament.forEach(async e => {
+                    const temper = await Temperament.findOne({
                         where: {
                             name: e
                         }
@@ -37,7 +35,7 @@ router.post('/', async (req, res) =>{
                     await dog.addTemperaments(temper);
                 });
             }
-            res.send('Dog created!')
+            res.send(dog);
         }
         catch(e){
             console.log('ERROR!!: ',e)

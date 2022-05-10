@@ -14,13 +14,15 @@
     margin-left: 50%;
     padding-top: 20%;
     padding-bottom: 25%;
-    background-color: burlywood;
     text-align: center;
     font-size: 1.5rem;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .buttonHome {
     font-size: 2rem;
-    background-color:slategrey;
-    border-radius: 5px;
+    background-color:rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }

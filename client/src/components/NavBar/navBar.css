@@ -1,18 +1,15 @@
 .navStyle{
     padding: 10px;
-    background-color:rgb(255, 182, 109);
+    background-color:rgb(103, 55, 16);
     display: flex;
-    justify-content: space-around;
-}
-
-.searchBar {
-    align-self: flex-end;
-    border: 2px solid gray;
-    border-radius: 3px;
+    justify-content: flex-start;
 }
 
 .toLanding {
-    font-size: 1rem;
-    background-color:slategrey;
-    border-radius: 3px;
+    font-size:1.1rem;
+    background-color: rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    margin: 15px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }

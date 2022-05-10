@@ -42,6 +42,4 @@ router.get('/', async (req, res) =>{
     res.send(t)
 });
 
-
-
 module.exports = router;

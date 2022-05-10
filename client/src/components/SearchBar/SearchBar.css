@@ -1,0 +1,16 @@
+.input{
+    margin: 15px;
+    margin-right: 1px;
+    margin-left: 42rem;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+
+.buttonSubmit{
+    font-size: 1.3rem;
+    background-color: rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}

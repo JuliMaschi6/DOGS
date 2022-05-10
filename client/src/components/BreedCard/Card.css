@@ -1,0 +1,37 @@
+.card{
+    border-radius: 30px;
+    padding: 25px;
+    background-color:rgb(250, 240, 224) ;
+    margin: 20px;
+    width: 15rem;
+}
+
+.card-body{
+    margin-top: -15px;
+    margin-bottom: -15px;
+}
+
+.imageDog{
+    width: 13rem;
+    height: 13rem;
+    padding: 0.5rem;
+}
+
+.imgDiv{
+    justify-content: center;
+    margin: 1rem;
+    display: flex;
+}
+
+.card-title{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.details{
+    font-size:1.1rem;
+    background-color: rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    display: flex;
+    justify-content:flex-end;
+}

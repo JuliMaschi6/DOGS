@@ -4,13 +4,16 @@ const {
     GET_ALL_BREEDS,
     GET_BREED_DETAIL,
     GET_ALL_TEMPERAMENTS,
-    CREATE_BREED,
     FIND_BREED_NAME,
-    FILTER_TEMPERAMENT,
+    CREATE_BREED,
+    CLEAN_BREED_DETAIL,
     ORDER_AZ,
     ORDER_ZA,
     ORDER_WEIGHT_ASC,
-    ORDER_WEIGHT_DESC
+    ORDER_WEIGHT_DESC,
+    BREEDS_DB,
+    BREEDS_API,
+    FILTER_BY_TEMP
 } = require('../actions-types/index');
 
 
@@ -45,7 +48,6 @@ export function findBreedByName(value) {
 };
 
 export function getBreedDetail(id) {
-    // console.log('soy el id en las actions ',id)
     return async function (dispatch) {
         try{
             const results = await axios.get(`http://localhost:3001/dogs/${id}`);
@@ -62,43 +64,73 @@ export function getBreedDetail(id) {
 
 export function createBreed(data) {
     return async function (dispatch) {
-        const results = await axios.post('http://localhost:3001/dog',data);
-        const action = {type: CREATE_BREED , payload: results.data}
-        return action
+        try{
+            const results = await axios.post('http://localhost:3001/dog',data);
+            console.log('soy la data: ',results.data)
+            dispatch( {
+                type: CREATE_BREED,
+                payload: results.data
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
     }
 };
 
-export function filterByTemp(valueTemper) {
+export function filterByTemp(temper) {
     return {
-        type: FILTER_TEMPERAMENT,
-        payload: valueTemper,
+        type: FILTER_BY_TEMP,
+        payload: temper,
     }
 };
 
-export function orderByAZ(data) {
+export function orderByAZ() {
     return {
         type: ORDER_AZ,
-        payload: data,
     }
 };
 
-export function orderByZA(data) {
+export function orderByZA() {
     return {
         type: ORDER_ZA,
-        payload: data,
     }
 };
 
-export function weightASC(data) {
+export function weightASC() {
     return {
         type: ORDER_WEIGHT_ASC,
-        payload: data,
     }
 };
 
-export function weightDESC(data) {
+export function weightDESC() {
     return {
         type: ORDER_WEIGHT_DESC,
-        payload: data,
+    }
+};
+
+export function cleanBreedDetail() {
+        return {
+            type: CLEAN_BREED_DETAIL,
+        }
+    };
+
+export function getBreedsDB() {
+    return async function (dispatch) {
+        const results = await axios.get('http://localhost:3001/dogs/dogsDB');
+        dispatch({
+            type: BREEDS_DB,
+            payload: results.data
+        })
+    }
+};
+
+export function getBreedsApi() {
+    return async function (dispatch) {
+        const results = await axios.get('http://localhost:3001/dogs/dogsApi');
+        dispatch({
+            type: BREEDS_API,
+            payload: results.data
+        })
     }
 };

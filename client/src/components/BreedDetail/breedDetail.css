@@ -1,0 +1,25 @@
+.imgDog{
+    float: left;
+}
+.dog{
+    margin: 15px;
+    height: 35rem;
+    width: 45rem;
+    background-size: 100% 100%;
+    border: 1px;
+    border-style: solid;
+    border-radius: 30px;
+}
+
+.data{
+    padding-bottom: 30px;
+    border: 1px;
+    border-style: solid;
+    border-radius: 30px;
+    float: right;
+    width: 42.5%;
+    margin: 20px;
+    margin-top: 14%;
+    text-align: center;
+    background-color: rgb(254, 239, 217);
+}

@@ -1,8 +1,37 @@
+.containerForm{
+  background-image: url('../../img/patas.jpg');
+  padding: 3rem;
+  text-align: center;
+  line-height: 45px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.divForm{
+  background-color: rgb(248, 231, 210);
+  border-radius: 100px;
+  border-style: solid;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+h4{
+  margin-bottom: -5px;
+}
+
 .divForm{
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.btnS{
+    font-size:1.1rem;
+    background-color: rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    margin: 15px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
 p.danger {
@@ -12,4 +41,31 @@ p.danger {
   
 input.danger {
    border: 2px solid red;
+}
+
+.delete{
+  font-size: 15px;
+  background-color: rgb(203, 56, 56);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  border-radius: 4px;
+  height: 25px;
+  width: 25px;
+}
+
+.temp{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.btnT{
+  margin: 10px;
+  background-color: rgb(228, 184, 148);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.inputStyle{
+  border-radius: 10px;
 }

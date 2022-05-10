@@ -1,6 +1,16 @@
-.pageView {
+.options{
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: rgb(233, 233, 233);
+}
+
+.btn{
+    font-size: 1.1rem;
+    background-color:rgb(176, 176, 176);
+    border: 1px;
+    border-radius: 10px;
+    margin: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }

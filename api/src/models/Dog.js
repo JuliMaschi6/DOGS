@@ -17,31 +17,13 @@ module.exports = (sequelize) => {
     height: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   max: 100
-      // },
-      // get(){
-      //   const value=this.getDataValue('height')
-      //   return `${value} cm`
-      // }
     },
     weight: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   max: 150
-      // },
-      // get(){
-      //   const value = this.getDataValue('weight') 
-      //   return value ? `${value} kg` : null
-      // }
     },
     age: {
-      type: DataTypes.STRING,
-      // validate: {
-      //   min: 1,
-      //   max: 35,
-      // } 
+      type: DataTypes.STRING 
     },
     img: {
       type: DataTypes.STRING(1234),
@@ -51,3 +33,5 @@ module.exports = (sequelize) => {
     timestamps: false
   });
 };
+
+

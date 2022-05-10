@@ -1,20 +1,26 @@
 const { GET_ALL_BREEDS,
     GET_BREED_DETAIL,
     GET_ALL_TEMPERAMENTS,
-    CREATE_BREED,
     FIND_BREED_NAME,
     FILTER_TEMPERAMENT,
+    CREATE_BREED,
+    BREEDS_DB,
+    CLEAN_BREED_DETAIL,
     ORDER_AZ,
     ORDER_ZA,
     ORDER_WEIGHT_ASC,
-    ORDER_WEIGHT_DESC 
+    ORDER_WEIGHT_DESC,
+    BREEDS_API,
+    FILTER_BY_TEMP
 } = require('../actions-types/index');
 
 const initialState = {
     breeds: [],
-    // oneTypeBreed: [],
     temperaments: [],
     breedDetail: {},
+    created: [],
+    apiBreeds: [],
+    allBreeds: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -22,13 +28,20 @@ function rootReducer(state = initialState, action) {
         case GET_ALL_BREEDS:
           return{
             ...state,
-            breeds: action.payload
+            breeds: action.payload,
+            allBreeds: action.payload
           }
 
         case GET_ALL_TEMPERAMENTS:
           return{
             ...state,
             temperaments: action.payload
+          }
+
+        case CLEAN_BREED_DETAIL:
+          return{
+            ...state,
+            breedDetail: {}
           }
           
         case GET_BREED_DETAIL:
@@ -39,8 +52,7 @@ function rootReducer(state = initialState, action) {
         
         case CREATE_BREED:
           return{
-              ...state,
-              breeds: [...state.breeds , action.payload]
+              ...state
           }
     
         case FIND_BREED_NAME:
@@ -48,6 +60,15 @@ function rootReducer(state = initialState, action) {
             ...state,
             breeds: action.payload
           }
+
+        case FILTER_BY_TEMP:
+            const filtered = action.payload === 'Temperaments' 
+              ? state.allBreeds 
+              : state.allBreeds.filter((e) => e.temperament?.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1)))
+            return{
+                ...state,
+                breeds: filtered
+            }
         
         case FILTER_TEMPERAMENT:
             return{
@@ -56,42 +77,70 @@ function rootReducer(state = initialState, action) {
             }
             
         case ORDER_AZ:
-            return{
-                ...state,
-                breeds: state.breeds.sort()
-            }
+          let resultsAZ = state.breeds.sort(function(a, b){
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+            if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+            return 0;
+          });
+
+          return {
+            ...state,
+            breeds: resultsAZ
+          }
+
         case ORDER_ZA:
-            return{
-                ...state,
-                breeds: state.breeds.reverse()
-            }
+          let resultsZA = state.breeds.sort(function(a, b){
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+            if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+            return 0;
+          });
+
+          return {
+            ...state,
+            breeds: resultsZA
+          };
         
         case ORDER_WEIGHT_ASC:
-            function sortArray(x, y){
-                if (x.weight < y.weight) {return -1;}
-                if (x.weight > y.weight) {return 1;}
-                return 0;
-            }
-            return{
-                ...state,
-                breeds: state.breeds.sort(sortArray)
-            }
-
+          let orderAsc = state.allBreeds.sort(
+            (a, b) =>
+              b.weight.replace(/\s+/g, "").split("-")[1] -
+              a.weight.replace(/\s+/g, "").split("-")[1]
+          );
+          orderAsc.reverse();
+          return{
+            ...state,
+            allBreeds: orderAsc
+          }
+    
         case ORDER_WEIGHT_DESC:
-            function reverseArray(x, y){
-                if (x.weight < y.weight) {return -1;}
-                if (x.weight > y.weight) {return 1;}
-                return 0;
-            }
-            return{
-                ...state,
-                breeds: state.breeds.reverse(reverseArray)
-            }
+          let orderDesc = state.breeds.sort((a, b) => {
+              return(
+                a.weight.replace(/\s+/g, "").split("-")[1] -
+                b.weight.replace(/\s+/g, "").split("-")[1]
+              )
+          });
+          orderDesc.sort().reverse();
+          return{
+            ...state,
+            allBreeds: orderDesc
+          }
+        
+        case BREEDS_DB:
+          return {
+            ...state,
+            created: action.payload,
+            breeds: action.payload
+          }
+          
+        case BREEDS_API:
+          return{
+            ...state,
+            breeds: action.payload
+          }
         
         default:
           return {...state}
     }
 }
-
 
 export default rootReducer;

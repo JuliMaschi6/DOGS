@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
-// import './Buscador.css';
+import './SearchBar.css';
 import { findBreedByName } from "../../actions/index";
+
 
 export class SearchBar extends Component {
     constructor(props) {
@@ -27,28 +27,19 @@ export class SearchBar extends Component {
       return (
         <div>
           <form className="form-container" onSubmit={(e) =>this.handleSubmit(e)}>
-            <div>
+            <div className='containerS'>
               <input
+                className="input"
                 type="text"
                 id="name"
                 autoComplete="off"
-                placeholder="Enter yout breed name..."
+                placeholder="Enter your breed name..."
                 value={name}
                 onChange={(e) => this.handleChange(e)}
               />
-              <button type="submit">Search</button>
+              <button type="submit" className="buttonSubmit">Search</button>
             </div>
           </form>
-          {/* <ul>
-           {
-            this.props.breeds?.map(b =>
-               <div className="buscador" key={b.id}>
-                 <Link to={`/home/breedDetail/${b.id}`}>
-                  <li>{b.name}</li>
-                 </Link>
-              </div>)
-           }
-          </ul> */}
         </div>
       );
     }

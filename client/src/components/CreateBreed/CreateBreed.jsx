@@ -41,11 +41,16 @@ export default function CreateBreed() {
 
     const hadleChangeTemp = function(e){
         e.preventDefault();
-        setInput({
-            ...input,
-            temperament: [...input.temperament, e.target.value]
-        });
+
+        if(input.temperament.length === 0) setInput({ ...input, temperament: [...input.temperament, e.target.value]})
+        else{
+            if(input.temperament.find(element => element === e.target.value)){   
+            }
+            else{
+            setInput({ ...input, temperament: [...input.temperament, e.target.value]})}
+        }
     }
+    
 
     function handleDelete(e) {
         e.preventDefault();
@@ -62,63 +67,70 @@ export default function CreateBreed() {
   
     function handleSubmit(e) {
       e.preventDefault();
-      if(input.name && input.img && input.minHeight && input.maxHeight && input.minWeight && input.maxWeight &&
-        input.minAge && input.maxAge && input.temperament){
-        dispatch(createBreed(input))
-        alert("Breed was created successfully");
 
-        setInput({
-            name: '',
-            minWeight: '',
-            maxWeight: '',
-            minHeight: '',
-            maxHeight: '',
-            minAge: '',
-            maxAge: '',
-            img: '',
-            temperament: []
-        });
+        if(errors.age !== "" && errors.height !== "" && errors.img !== "" && errors.name !== "" && errors.weight !== ""){
+            (alert('Please complete correctly.'));
+        }
+        else{
+            if(input.name && input.img && input.minHeight  && input.maxHeight && input.minWeight && input.maxWeight &&
+                input.minAge && input.maxAge && input.temperament){
 
-        }else{
-            (alert('Must fill all the inputs.'));
+                dispatch(createBreed(input));
+                alert("Breed was created successfully");
+    
+                setInput({
+                    name: '',
+                    minWeight: '',
+                    maxWeight: '',
+                    minHeight: '',
+                    maxHeight: '',
+                    minAge: '',
+                    maxAge: '',
+                    img: '',
+                    temperament: [],
+            });
+    
+            }else{
+                (alert('Must complete all the data required.'));
+            }
         }
     }
 
     return (
-        <div >
+        <div className='containerForm'>
           <form id="breedForm" className='divForm' onSubmit={handleSubmit}>
             <div>
                 <label>Name: </label>
-                <input name='name' value={input.name} onChange={handleChange} />
+                <input className='inputStyle' name='name' value={input.name} onChange={handleChange} />
                 {errors.name && (<p className='danger'>{errors.name}</p>)}
             </div>
             <div>
-                <p>Weight</p>
-                <label>Min: </label>
-                <input type="text" name='minWeight' value={input.minWeight} onChange={handleChange}  />
-                <label>Max: </label>
-                <input type="text" name='maxWeight' value={input.maxWeight} onChange={handleChange} />
+                <h4>Weight (Kg)</h4>
+                <label> Min: </label>
+                <input className='inputStyle' type="text" name='minWeight' value={input.minWeight} onChange={handleChange}  />
+                <label> Max: </label>
+                <input className='inputStyle' type="text" name='maxWeight' value={input.maxWeight} onChange={handleChange} />
                 {errors.weight && (<p className='danger'>{errors.weight}</p>)}
             </div>
             <div>
-                <p>Height</p>
-                <label>Min: </label>
-                <input type="text" name='minHeight' value={input.minHeight} onChange={handleChange} />
-                <label>Max: </label>
-                <input type="text" name='maxHeight' value={input.maxHeight} onChange={handleChange} />
+                <h4>Height (cm) </h4>
+                <label> Min:  </label>
+                <input className='inputStyle' type="text" name='minHeight' value={input.minHeight} onChange={handleChange} />
+                <label> Max:  </label>
+                <input className='inputStyle' type="text" name='maxHeight' value={input.maxHeight} onChange={handleChange} />
                 {errors.height && (<p className='danger'>{errors.height}</p>)}
             </div>
             <div>
-                <p>Average life: </p>
-                <label>Min: </label>
-                <input type='text' name='minAge' max='35' value={input.minAge} onChange={handleChange} />
-                <label>Max: </label>
-                <input type='text' name='maxAge' max='35' value={input.maxAge} onChange={handleChange} />
+                <h4>Life span (years) </h4>
+                <label> Min: </label>
+                <input className='inputStyle' type='text' name='minAge' max='35' value={input.minAge} onChange={handleChange} />
+                <label> Max: </label>
+                <input className='inputStyle' type='text' name='maxAge' max='35' value={input.maxAge} onChange={handleChange} />
                 {errors.age && (<p className='danger'>{errors.age}</p>)}
             </div>
             <div>
                 <label>Image url: </label>
-                <input type='text' name='img' placeholder='Paste your image link...' value={input.img} onChange={handleChange} />
+                <input className='inputStyle' type='text' name='img' placeholder='Paste your image link...' value={input.img} onChange={handleChange} />
                 {errors.img && (<p className='danger'>{errors.img}</p>)}
             </div>
             <div>
@@ -130,19 +142,18 @@ export default function CreateBreed() {
                     </select>
             </div>
 
-            <div>
+            <div className='temp' >
                 {input.temperament.map(e => (
-                    <div  key={addKey()}>
+                    <div className='btnT' key={addKey()}>
                         <p>{e}</p>
-                        <button onClick={handleDelete} value={e}>X</button>
+                        <button className='delete' onClick={handleDelete} value={e}>X</button>
                     </div>
                 ))}
             </div>
             <div>
-                <button type='submit'>Create breed</button> 
+                <button className='btnS' type='submit' >Create breed</button>
             </div>
           </form>
         </div>
     );
 }
-

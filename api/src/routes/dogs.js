@@ -20,37 +20,12 @@ router.get('/', async (req, res) =>{
     let {name} = req.query;
 
     if(!name){
-        try{
-            const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
 
-            const breeds = apiResult.data.map(e => {
-                return {
-                    id: e.id,
-                    img: e.image.url,
-                    name: e.name,
-                    temperament: e.temperament,
-                    weight: e.weight.metric
-                }
-            })
-
-            const breedsDB = await Dog.findAll({
-                include: {
-                    model: Temperament,
-                    attributes: ['name'],
-                    through: {
-                        attributes: [],
-                    },
-                }
-            });
-
-            // console.log(breedsDB)
-            const allBreeds = [...breeds,...breedsDB]
-            res.send(allBreeds)
-        }
-        catch(e){
-            console.log('Error',e)
-        }
-
+        const breeds = await getApiBreeds();
+        const breedsDB = await getDBbreeds();
+        const allBreeds = breeds.concat(breedsDB)
+        res.send(allBreeds)
+        
     }else{
         try{
             const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
@@ -67,33 +42,13 @@ router.get('/', async (req, res) =>{
                 }
             });
             if (breeds.length>0){
-                const breedsDB = await Dog.findAll({
-                    include: {
-                        model: Temperament,
-                        attributes: ['name'],
-                        through: {
-                            attributes: [],
-                        },
-                    },
-                    where: {
-                        name: name
-                    }
-                });
+                const breedsDB = await getDBbreeds();
+                
                 let allBreeds = [...breeds,...breedsDB]
                 return res.send(allBreeds)
+
             }else {
-                const breedsDB = await Dog.findAll({
-                    include: {
-                        model: Temperament,
-                        attributes: ['name'],
-                        through: {
-                            attributes: [],
-                        },
-                    },
-                    where: {
-                        name: name
-                    }
-                });
+                const breedsDB = await getDBbreeds();
                 if(breedsDB){
                     res.send(breedsDB)
                 }
@@ -112,10 +67,18 @@ Obtener el detalle de una raza de perro en particular
 Debe traer solo los datos pedidos en la ruta de detalle de raza de perro
 Incluir los temperamentos asociados
 */
+router.get('/dogsApi', async (req,res) => {
+    const result = await getApiBreeds();
+    res.send(result)
+})
+
+router.get('/dogsDB', async (req,res) => {
+    const result = await getDBbreeds();
+    res.send(result)
+})
 
 router.get('/:id', async (req, res) =>{
     let {id} = req.params;
-    // console.log('SOY EL ID: ',id)
     if(id){
         try{
             const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
@@ -134,16 +97,16 @@ router.get('/:id', async (req, res) =>{
             } 
             else {
                 try{
-                    const result = await Dog.findByPk(id , {include: Temperament})
+                    const result = await Dog.findOne({where: {id: id} , include: [Temperament]})
                     if(result){
                         return res.send({
                             id: result.id,
-                            img: result.image.url,
+                            img: result.img,
                             name: result.name,
-                            temperament: result.temperament,
+                            temperament: result.temperaments.map(e=> `${e.name}, `),
                             weight: result.weight,
                             height: result.height,
-                            age: result.life_span
+                            age: result.age
                         })
                     }
                 }
@@ -159,6 +122,67 @@ router.get('/:id', async (req, res) =>{
         res.status(404).send(`Error , ${id}`)
     }
 });
+
+
+const getDBbreeds = async () =>{
+    try{
+        const breedsDB = await Dog.findAll({
+            include: {
+                model: Temperament,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                },
+            }
+        });
+        return breedsDB;
+    }
+    catch{
+        return 'No created dog founded'
+    }
+}
+
+const getApiBreeds = async () =>{
+ 
+    try{
+        const apiResult = await axios.get(`https://api.thedogapi.com/v1/breeds`,{headers: {'x-api-key': `${API_KEY}`}})
+        
+        const breeds = apiResult.data.map(e => {
+            if(!e.weight.metric.includes('-')){
+
+                if(e.weight.metric.includes('NaN')){
+                    return {
+                        id: e.id,
+                        img: e.image.url,
+                        name: e.name,
+                        temperament: e.temperament,
+                        weight: `13 - 27`
+                    }
+                }
+                else if(Number(e.weight.metric) !== NaN){
+                    return {
+                        id: e.id,
+                        img: e.image.url,
+                        name: e.name,
+                        temperament: e.temperament,
+                        weight: `1 - ${e.weight.metric}`
+                    }
+                }
+            }
+            return {
+                id: e.id,
+                img: e.image.url,
+                name: e.name,
+                temperament: e.temperament,
+                weight: e.weight.metric
+            }
+        })
+        return breeds;
+    }
+    catch(e){
+        console.log('Error',e)
+    }
+}
 
 
 module.exports = router;

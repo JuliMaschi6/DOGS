@@ -1,124 +1,76 @@
 import React, { useState } from 'react';
 import './Cards.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllBreeds } from '../../actions/index';
-import Card from '../BreedCard/Card';
+import { orderByAZ , orderByZA , weightASC , weightDESC , getBreedsDB , getBreedsApi} from '../../actions/index';
+import { useDispatch } from 'react-redux';
+import Pagination from '../Pagination/pagination';
+import FilterTemps from '../FilterTemps/FilterByTemp';
+
+
 
 export default function Cards() {
 
     const dispatch = useDispatch();
-
-    const breeds = useSelector(state => state.breeds)
-    let allBreeds = [...breeds]
-    console.table(allBreeds)
-    const numPages = Math.ceil(breeds.length/8)
-
+    const [, /*refreshState*/ setRefreshState] = useState(false);
+    
     //Se ejecuta cada vez que se renderiza el componente ---> componentDidMount y componentDidUpdate
     React.useEffect(()=>{
         // console.log('soy el useEffect')
-        dispatch(getAllBreeds())
-    },[])
+    },[dispatch])
 
-    const [currentPage,setCurrentPage] = useState(1)
-
-    let pages = getPages(allBreeds,8);
-
-    const firstPage = (e) => {
-        setCurrentPage(
-            1
-        )
+    const sortAZ = () => {
+        dispatch(orderByAZ())
+        setRefreshState((prevState) => !prevState);
     }
 
-    const lastPage = (e) => {
-        setCurrentPage(
-            numPages
-        )
+    const sortZA = () => {
+        dispatch(orderByZA())
+        setRefreshState((prevState) => !prevState);
     }
 
-    const nextPage = (e) => {
-        setCurrentPage(
-            currentPage + 1
-        )
+    const weightAsc = () => {
+        dispatch(weightASC())
+        setRefreshState((prevState) => !prevState);
     }
 
-    const previousPage = (e) => {
-        setCurrentPage(
-            currentPage - 1
-        )
+    const weightDesc = () => {
+        dispatch(weightDESC())
+        setRefreshState((prevState) => !prevState);
     }
 
-    if(pages.length > 0){
-        console.table(pages)
+    const breedsDB = () => {
+        dispatch(getBreedsDB())
+        setRefreshState((prevState) => !prevState);
+    }
+
+    const breedsApi = () => {
+        dispatch(getBreedsApi())
+        setRefreshState((prevState) => !prevState);
+    }
+
         return (
             <div>
-                <div className='buttons'>
-                    {
-                        currentPage === 1
-                            ? <div> <input type='button' name='firtsPage' onClick={firstPage} value='1' /> <input type='button' name='next' onClick={nextPage} value='next' /> <input type='button' name='lastPage' onClick={lastPage} value={numPages} /> </div>
-                            
-                            : currentPage === 2
-                                ? <div> <input type='button' name='firtsPage' onClick={firstPage} value='1' /> <input type='button' value={currentPage}/> <input type='button' name='next' onClick={nextPage} value='next' /> <input type='button' name='lastPage' onClick={lastPage} value={numPages} /> </div>
-                                 
-                                : currentPage > 2 && currentPage < numPages-1
-                                    ? <div> <input type='button' name='firtsPage' onClick={firstPage} value='1' /> <input type='button' name='back' onClick={previousPage} value='back' /> <input type='button' value={currentPage}/> <input type='button' name='next' onClick={nextPage} value='next' /> <input type='button' name='lastPage' onClick={lastPage} value={numPages} /> </div>
-                                    
-                                    : currentPage === numPages
-                                        ? <div> <input type='button' name='firtsPage' onClick={firstPage} value='1' /> <input type='button' name='back' onClick={previousPage} value='back' /> <input type='button' name='lastPage' onClick={lastPage} value={numPages} /> </div>
-                                        
-                                        : currentPage === numPages-1
-                                            ? <div> <input type='button' name='firtsPage' onClick={firstPage} value='1' /> <input type='button' name='back' onClick={previousPage} value='back' /> <input type='button' value={currentPage}/> <input type='button' name='lastPage' onClick={lastPage} value={numPages} /> </div>
-
-                                            : null
-                    }
+                <div className='options'>
+                    <div>
+                        <FilterTemps />
+                    </div>
+                    <div>
+                        <input className='btn' type='button' name='orderAZ' onClick={sortAZ} value='Sort A-Z' />
+                        <input className='btn' type='button' name='orderZA' onClick={sortZA} value='Sort Z-A' />
+                        <input className='btn' type='button' name='weightAsc' onClick={weightAsc} value='Weight ASC' />
+                        <input className='btn' type='button' name='weightDesc' onClick={weightDesc} value='Weight DESC' />
+                        <input className='btn' type='button' name='breedsDB' onClick={breedsDB} value='Created Dogs' />
+                        <input className='btn' type='button' name='breedsApi' onClick={breedsApi} value='API Dogs' />
+                    </div>
                 </div>
-                <div className='pageView'>
-                    {
-                        pages[currentPage-1].map( b => <Card key={b.id} img={b.img} name={b.name} weight={b.weight} temperaments={b.temperament} id={b.id} />)
-                    }
-                </div>
-          </div>
+                <div>
+                    <Pagination />
+                </div> 
+            </div>
         );
-    }else {
-        return(
-          <div>No breeds found</div>
-        )
-    }
 }
 
-function getPages(totalBreeds,pageLimit){
-    let pages = []
-    let arr = []
-    while (totalBreeds.length > 0) {
 
-        let breed = totalBreeds.shift();
-
-        if(totalBreeds.length !== 0){
-
-            if(arr.length <= pageLimit-1){
-                arr = [...arr,breed];
-            }
-            else{
-                pages = [...pages,arr];
-                arr = [];
-                arr = [...arr,breed];
-            }
-        }
-        else{
-            if(arr.length <= pageLimit-1){
-                arr = [...arr,breed];
-            }
-            else{
-                pages = [...pages,arr];
-                arr = [];
-                arr = [...arr,breed];
-            }
-            pages = [...pages,arr];
-        }
-    }
-    return pages;
-}
-
-//     0     1     2     3     4
+/* //     0     1     2     3     4
 // [ {...},{...},{...},{...},{...} ]
 
 //   breed
@@ -126,4 +78,4 @@ function getPages(totalBreeds,pageLimit){
 // arr = []
 
 //                PAGE 1
-// pages = [  [{...},{...},{...}] , ]
+// pages = [  [{...},{...},{...}] , ] */
