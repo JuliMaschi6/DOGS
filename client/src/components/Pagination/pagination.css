@@ -29,16 +29,11 @@
     
 }
 
-
-
 .img{
-    border-style: solid;
-    border-radius: 30px;
     justify-content: center;
     margin-left: 25rem;
     margin-right: 25rem;
     display: flex;
-    background-color:rgb(254, 239, 217) ;
 }
 
 .imgDog{

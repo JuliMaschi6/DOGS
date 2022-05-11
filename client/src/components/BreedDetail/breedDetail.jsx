@@ -26,7 +26,7 @@ export default function breedDetail({match}){
             </div>
             <div className="data">
                 <h1>{details.name}</h1>
-                <h5>Life span: {details.age}</h5>
+                <h5>Life span: {details.age} years</h5>
                 <h5>Height: {details.height} cm</h5>
                 <h5>Weight: {details.weight} Kg</h5>
                 <h4>Temperaments: {details.temperament}</h4>

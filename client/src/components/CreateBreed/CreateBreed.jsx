@@ -64,36 +64,41 @@ export default function CreateBreed() {
     function addKey(){
         return id++
     }
-  
+
+    const val = () =>{
+        if(errors.age !== '' || errors.height !== '' || errors.img !== '' || errors.name !== '' || errors.weight !== ''){
+            return false
+        }
+        else if(input.name && input.img && input.minHeight  && input.maxHeight && input.minWeight && input.maxWeight &&
+            input.minAge && input.maxAge && input.temperament){
+            return true
+        }else{
+            return 'empty'
+        }
+    }
+
     function handleSubmit(e) {
-      e.preventDefault();
-
-        if(errors.age !== "" && errors.height !== "" && errors.img !== "" && errors.name !== "" && errors.weight !== ""){
-            (alert('Please complete correctly.'));
-        }
-        else{
-            if(input.name && input.img && input.minHeight  && input.maxHeight && input.minWeight && input.maxWeight &&
-                input.minAge && input.maxAge && input.temperament){
-
-                dispatch(createBreed(input));
-                alert("Breed was created successfully");
+        e.preventDefault();
+        if(val() === true){
+            dispatch(createBreed(input));
+            alert("Breed was created successfully");
     
-                setInput({
-                    name: '',
-                    minWeight: '',
-                    maxWeight: '',
-                    minHeight: '',
-                    maxHeight: '',
-                    minAge: '',
-                    maxAge: '',
-                    img: '',
-                    temperament: [],
-            });
-    
-            }else{
-                (alert('Must complete all the data required.'));
-            }
+            setInput({
+                name: '',
+                minWeight: '',
+                maxWeight: '',
+                minHeight: '',
+                maxHeight: '',
+                minAge: '',
+                maxAge: '',
+                img: '',
+                temperament: [],
+            })
         }
+        else if (val() === 'empty') {
+            (alert('Must complete all the data required.'));
+        }
+        else (alert('Please complete correctly.'));
     }
 
     return (

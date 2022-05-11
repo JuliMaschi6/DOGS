@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 import Pagination from '../Pagination/pagination';
 import FilterTemps from '../FilterTemps/FilterByTemp';
 
-
-
 export default function Cards() {
 
     const dispatch = useDispatch();

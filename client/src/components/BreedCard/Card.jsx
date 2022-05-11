@@ -15,7 +15,7 @@ export default function Card ({img, name, weight, temperament, id ,temperaments}
             <div>
               {
                 temperaments 
-                  ? <div><h4>Temperaments: {temperaments.map(e=>{return e.name +',' + ' '})}</h4></div>
+                  ? <div><h4>Temperaments: </h4><p>{temperaments.map(e=>{return e.name +',' + ' '})}</p></div>
                   : <div><h4>Temperaments: </h4><p>{temperament}</p></div>
               }
             </div>
@@ -30,5 +30,3 @@ export default function Card ({img, name, weight, temperament, id ,temperaments}
       </div>
     );
 };
-
-// style={{ textDecoration: 'none', color: 'black' }}

@@ -2,7 +2,6 @@ const { GET_ALL_BREEDS,
     GET_BREED_DETAIL,
     GET_ALL_TEMPERAMENTS,
     FIND_BREED_NAME,
-    FILTER_TEMPERAMENT,
     CREATE_BREED,
     BREEDS_DB,
     CLEAN_BREED_DETAIL,
@@ -62,20 +61,21 @@ function rootReducer(state = initialState, action) {
           }
 
         case FILTER_BY_TEMP:
-            const filtered = action.payload === 'Temperaments' 
-              ? state.allBreeds 
-              : state.allBreeds.filter((e) => e.temperament?.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1)))
-            return{
-                ...state,
-                breeds: filtered
-            }
+          const filtered = state.allBreeds.filter((e) => e.temperament?.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1)))
+          let arr = []
+          state.created.forEach(e => {
+            e.temperaments.forEach(el => {
+              if(el.name.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1))){
+                arr.push(e)
+              }
+            });
+          })
+          const all = filtered.concat(arr)
+          return{
+              ...state,
+              breeds: all
+          }
         
-        case FILTER_TEMPERAMENT:
-            return{
-                ...state,
-                breeds: action.payload
-            }
-            
         case ORDER_AZ:
           let resultsAZ = state.breeds.sort(function(a, b){
             if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;

@@ -16,9 +16,6 @@ let validate = (value) => {
         else if(parseInt(value.minWeight) > parseInt(value.maxWeight)){
             errors.weight= 'Minimum weight cannot be greater than maximum weight.'
         }
-        // else if(parseInt(value.minWeight) > 150 || parseInt(value.maxWeight) > 150){
-        //     errors.height= 'weight cannot be greater than 150'
-        // }
         else errors.weight = '';
     }
     else errors.weight = 'Weight is required.';
@@ -30,9 +27,6 @@ let validate = (value) => {
         else if(parseInt(value.minHeight) > parseInt(value.maxHeight)){
             errors.height= 'Minimum height cannot be greater than maximum height.'
         }
-        // else if(parseInt(value.minHeight) > 150 || parseInt(value.maxHeight) > 150){
-        //     errors.height= 'height cannot be greater than 150'
-        // }
         else errors.height = '';
     }
     else errors.height = 'Height is required.';
@@ -44,9 +38,6 @@ let validate = (value) => {
         else if(parseInt(value.minAge) > parseInt(value.maxAge)){
             errors.age= 'Minimum age cannot be greater than maximum age.'
         }
-        // else if(parseInt(value.minHeight) > 150 || parseInt(value.maxHeight) > 150){
-        //     errors.height= 'height cannot be greater than 150'
-        // }
         else errors.age = '';
     }
     else errors.age = 'Age is required.';

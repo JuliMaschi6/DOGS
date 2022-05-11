@@ -27,7 +27,6 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.STRING(1234),
-      // defaultValue: 'Image not found' 
     }
   }, {
     timestamps: false

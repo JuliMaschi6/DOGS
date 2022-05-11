@@ -66,7 +66,6 @@ export function createBreed(data) {
     return async function (dispatch) {
         try{
             const results = await axios.post('http://localhost:3001/dog',data);
-            console.log('soy la data: ',results.data)
             dispatch( {
                 type: CREATE_BREED,
                 payload: results.data

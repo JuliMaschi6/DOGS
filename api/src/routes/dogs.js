@@ -42,13 +42,15 @@ router.get('/', async (req, res) =>{
                 }
             });
             if (breeds.length>0){
-                const breedsDB = await getDBbreeds();
-                
-                let allBreeds = [...breeds,...breedsDB]
-                return res.send(allBreeds)
+                const breedsDB = await Dog.findAll({where: {name: name}});
+                if(breedsDB){
+                    let allBreeds = [...breeds,...breedsDB]
+                    return res.send(allBreeds)
+                }
+                return res.send(breeds)
 
             }else {
-                const breedsDB = await getDBbreeds();
+                const breedsDB = await Dog.findAll({where: {name: name}});
                 if(breedsDB){
                     res.send(breedsDB)
                 }

@@ -11,7 +11,6 @@ export default function FilterTemps() {
 
     React.useEffect(()=>{
         dispatch(getAllTemperaments())
-        console.log('soy el useEffect')
     },[dispatch])
 
     function handleChange(e) {
