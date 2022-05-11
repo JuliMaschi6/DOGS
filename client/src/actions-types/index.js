@@ -13,6 +13,7 @@ const ORDER_WEIGHT_DESC = 'ORDER_WEIGHT_DESC';
 const BREEDS_DB = 'BREEDS_DB';
 const BREEDS_API = 'BREEDS_API';
 const FILTER_BY_TEMP = 'FILTER_BY_TEMP'
+const SET_PAGE = 'SET_PAGE'
 
 module.exports = {
   GET_ALL_BREEDS,
@@ -29,5 +30,6 @@ module.exports = {
   ORDER_WEIGHT_DESC,
   BREEDS_DB,
   BREEDS_API,
-  FILTER_BY_TEMP
+  FILTER_BY_TEMP,
+  SET_PAGE
 }

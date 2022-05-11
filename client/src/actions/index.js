@@ -13,7 +13,8 @@ const {
     ORDER_WEIGHT_DESC,
     BREEDS_DB,
     BREEDS_API,
-    FILTER_BY_TEMP
+    FILTER_BY_TEMP,
+    SET_PAGE
 } = require('../actions-types/index');
 
 
@@ -131,5 +132,12 @@ export function getBreedsApi() {
             type: BREEDS_API,
             payload: results.data
         })
+    }
+};
+
+export function setPage(page) {
+    return {
+        type: SET_PAGE,
+        payload: page,
     }
 };

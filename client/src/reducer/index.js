@@ -10,7 +10,8 @@ const { GET_ALL_BREEDS,
     ORDER_WEIGHT_ASC,
     ORDER_WEIGHT_DESC,
     BREEDS_API,
-    FILTER_BY_TEMP
+    FILTER_BY_TEMP,
+    SET_PAGE
 } = require('../actions-types/index');
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
     breedDetail: {},
     created: [],
     apiBreeds: [],
-    allBreeds: []
+    allBreeds: [],
+    page: 1
 };
 
 function rootReducer(state = initialState, action) {
@@ -136,6 +138,12 @@ function rootReducer(state = initialState, action) {
           return{
             ...state,
             breeds: action.payload
+          }
+        
+        case  SET_PAGE:
+          return{
+            ...state,
+            page: action.payload
           }
         
         default:
