@@ -55,4 +55,8 @@
     border-radius: 10px;
     margin: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+ 
+}
+.btn:hover{
+    background-color: white;
 }

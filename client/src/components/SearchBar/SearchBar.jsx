@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import './SearchBar.css';
-import { findBreedByName } from "../../actions/index";
+import { findBreedByName, setPage } from "../../actions/index";
 
 
 export class SearchBar extends Component {
@@ -15,11 +15,13 @@ export class SearchBar extends Component {
 
     handleChange(e) {
       this.setState({ name: e.target.value });
+      // this.props.setPage(1);
     }
 
     handleSubmit(e) {
       e.preventDefault();
       this.props.findBreedByName(this.state.name);
+      this.setState({name:""});
     }
   
     render() {
@@ -53,7 +55,8 @@ export class SearchBar extends Component {
   
   function mapDispatchToProps(dispatch) {
     return {
-        findBreedByName: name => dispatch(findBreedByName(name))
+        findBreedByName: name => dispatch(findBreedByName(name)),
+        // setPage: value => dispatch(setPage(value))
     };
   }
   

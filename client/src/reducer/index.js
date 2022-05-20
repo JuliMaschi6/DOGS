@@ -63,20 +63,27 @@ function rootReducer(state = initialState, action) {
           }
 
         case FILTER_BY_TEMP:
-          const filtered = state.allBreeds.filter((e) => e.temperament?.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1)))
-          let arr = []
-          state.created.forEach(e => {
-            e.temperaments.forEach(el => {
-              if(el.name.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1))){
-                arr.push(e)
-              }
-            });
-          })
-          const all = filtered.concat(arr)
-          return{
+          if(action.payload !== undefined){
+            const filtered = state.allBreeds.filter((e) => e.temperament?.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1)))
+            let arr = []
+              state.created.forEach(e => {
+              e.temperaments.forEach(el => {
+                if(el.name.includes(action.payload.charAt(0).toUpperCase() + action.payload.slice(1))){
+                  arr.push(e)}
+                });
+              })
+            const all = filtered.concat(arr)
+            return{
               ...state,
               breeds: all
+            }
+          }else{
+            return{
+              ...state,
+              breeds: state.allBreeds
+            }
           }
+          
         
         case ORDER_AZ:
           let resultsAZ = state.breeds.sort(function(a, b){

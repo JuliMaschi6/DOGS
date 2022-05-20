@@ -6,6 +6,12 @@
     width: 15rem;
 }
 
+.card:hover{
+    transition: transform .6s;
+    background-color: rgb(250, 233, 205);
+    transform: scale(1.1);
+}
+
 .card-body{
     margin-top: -15px;
     margin-bottom: -15px;
@@ -25,13 +31,4 @@
 
 .card-title{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.details{
-    font-size:1.1rem;
-    background-color: rgb(176, 176, 176);
-    border: 1px;
-    border-radius: 10px;
-    display: flex;
-    justify-content:flex-end;
 }

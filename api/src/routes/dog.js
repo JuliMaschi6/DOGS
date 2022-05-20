@@ -12,7 +12,7 @@ router.post('/', async (req, res) =>{
     let {img, name, minHeight, maxHeight, minWeight, maxWeight, minAge, maxAge, temperament} = req.body;
 
     if(!name || !minHeight || !maxHeight || !minWeight || !maxWeight || !img){
-        res.send('Necessary data missing')
+        res.status(400).send('Necessary data missing')
     }
     else{
         try{
@@ -31,7 +31,7 @@ router.post('/', async (req, res) =>{
                             name: e
                         }
                     })
-                    await temper.addDog(dog);
+                    // await temper.addDog(dog);
                     await dog.addTemperaments(temper);
                 });
             }

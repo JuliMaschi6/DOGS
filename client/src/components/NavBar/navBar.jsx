@@ -13,9 +13,6 @@ export default class Nav extends Component {
                     <Link to={'/'}>
                         <button className='toLanding'> Init </button>
                     </Link>
-                    <Link to={'/home'}>
-                        <button className='toLanding'> Home </button>
-                    </Link>
                     <Link to={'/home/create'}>
                         <button className='toLanding'> Create Dog </button>
                     </Link>

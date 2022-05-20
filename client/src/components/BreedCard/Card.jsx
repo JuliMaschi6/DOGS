@@ -5,9 +5,10 @@ import './Card.css'
 export default function Card ({img, name, weight, temperament, id ,temperaments}) {
     return (
       <div className="card">
+        <Link to={`/home/breedDetail/${id}`} style={{ textDecoration: 'none', color: 'black' }} >
         <div className="card-body">
           <h2 className="card-title" key={id}>{name}</h2>
-        <div className="row">
+          <div className="row">
             <div>
               <h4>Weight: </h4>
               <p>{weight} Kg</p>
@@ -22,11 +23,9 @@ export default function Card ({img, name, weight, temperament, id ,temperaments}
             <div className="imgDiv">
               <img className="imageDog" src={img} alt="Dog image" />
             </div>
-            <Link to={`/home/breedDetail/${id}`} style={{ textDecoration: 'none', color: 'black' }} >
-              <button className="details">Breed details</button>
-            </Link>
+          </div>
         </div>
-        </div>
+        </Link>
       </div>
     );
 };
