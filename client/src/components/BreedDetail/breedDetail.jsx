@@ -5,7 +5,7 @@ import './breedDetail.css'
 import imageLoader from '../../img/loader.gif'
 import { Link } from 'react-router-dom';
 
-export default function breedDetail({match}){
+export default function BreedDetail({match}){
 
     const dispatch = useDispatch();
 
@@ -20,23 +20,24 @@ export default function breedDetail({match}){
 
     if(Object.keys(details).length !== 0){
         return (
-            <div>
-                <div className="home">
+            <div className="containerColor">
+                
+            <div className="containerD">
+                <div className="imgDog">
+                    <img className="dog" alt="dog" src={details.img}/>
+                </div>
+                <div className="data">
+                    <h1 className="dataName">{details.name}</h1>
+                    <p>Life span: {details.age}</p>
+                    <p>Height: {details.height} cm</p>
+                    <p>Weight: {details.weight} Kg</p>
+                    <p>Temperaments: {details.temperament}</p>
+                </div>
+            </div>
+            <div className="home">
                 <Link to={'/home'}>
                     <button className="btnHome"> Home </button>
                 </Link>
-            </div>
-            <div className="containerD">
-                <div className="imgDog">
-                    <img className="dog" src={details.img}/>
-                </div>
-                <div className="data">
-                    <h1>{details.name}</h1>
-                    <h5>Life span: {details.age} years</h5>
-                    <h5>Height: {details.height} cm</h5>
-                    <h5>Weight: {details.weight} Kg</h5>
-                    <h4>Temperaments: {details.temperament}</h4>
-                </div>
             </div>
             </div>
         )

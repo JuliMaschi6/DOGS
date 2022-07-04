@@ -1,16 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
+
 .input{
     margin: 15px;
     margin-right: 1px;
-    margin-left: 51.5rem;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    margin-left: 51rem;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 .buttonSubmit{
-    font-size: 1.3rem;
-    background-color: rgb(176, 176, 176);
+    font-size: 1.6rem;
+    background-color: rgb(197, 136, 86);
+    color: rgb(54, 37, 24);
     border: 1px;
-    border-radius: 10px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    border-radius: 5px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.buttonSubmit:hover{
+    background-color: rgb(240, 191, 151);
 }

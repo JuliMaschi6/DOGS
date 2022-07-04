@@ -1,15 +1,26 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;500&display=swap");
+
 .navStyle{
     padding: 10px;
-    background-color:rgb(103, 55, 16);
+    background-image: linear-gradient(to top, #454545 0%, #171717 100%);
+    /* background-color:rgb(103, 55, 16); */
     display: flex;
     justify-content: flex-start;
 }
 
 .toLanding {
-    font-size:1.1rem;
-    background-color: rgb(176, 176, 176);
+    font-size:1.6rem;
+    background-color: rgb(197, 136, 86);
+    color: rgb(54, 37, 24);
     border: 1px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 15px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.toLanding:hover{
+    color: rgb(54, 37, 24);
+    transition: all 0.3s ease; 
+    background-color: rgb(240, 191, 151);
 }

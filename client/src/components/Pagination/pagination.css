@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
+
 .pageView{
     display: flex;
     flex-wrap: wrap;
@@ -6,12 +8,13 @@
 
 .buttons{
     flex-direction: row;
-    font-size:1.1rem;
-    background-color: rgb(176, 176, 176);
+    font-size:1.6rem;
+    background-color: rgb(197, 136, 86);
+    color: rgb(54, 37, 24);
     border: 1px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 5px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 .btnContainer{
@@ -23,7 +26,7 @@
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
     padding: 5rem;
     margin-bottom: -50px;
     
@@ -50,13 +53,14 @@
 
 .btn{
     font-size: 1.1rem;
-    background-color:rgb(176, 176, 176);
+    background-color: rgb(197, 136, 86);
+    color: rgb(54, 37, 24);
     border: 1px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 5px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
  
 }
-.btn:hover{
-    background-color: white;
+.buttons:hover{
+    background-color: rgb(240, 191, 151);
 }

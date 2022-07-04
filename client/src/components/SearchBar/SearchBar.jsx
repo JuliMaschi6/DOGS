@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import './SearchBar.css';
-import { findBreedByName, setPage } from "../../actions/index";
+import { findBreedByName} from "../../actions/index";
 
 
 export class SearchBar extends Component {

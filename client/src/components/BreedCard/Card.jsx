@@ -16,12 +16,12 @@ export default function Card ({img, name, weight, temperament, id ,temperaments}
             <div>
               {
                 temperaments 
-                  ? <div><h4>Temperaments: </h4><p>{temperaments.map(e=>{return e.name +',' + ' '})}</p></div>
+                  ? <div><h4>Temperaments: </h4><p>{temperaments.map(e=>{return e.name +','})}</p></div>
                   : <div><h4>Temperaments: </h4><p>{temperament}</p></div>
               }
             </div>
             <div className="imgDiv">
-              <img className="imageDog" src={img} alt="Dog image" />
+              <img className="imageDog" src={img} alt="Dog" />
             </div>
           </div>
         </div>

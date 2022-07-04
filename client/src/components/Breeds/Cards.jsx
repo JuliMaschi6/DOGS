@@ -9,7 +9,7 @@ import { orderByAZ , orderByZA , weightASC , weightDESC , getBreedsDB , getBreed
 export default function Cards() {
 
     const dispatch = useDispatch();
-    const [, /*refreshState*/ setRefreshState] = React.useState(false);
+    const [, /*refreshState*/ setRefreshState] = useState(false);
     const handleSortName = (e)=>{
         if(e.target.value === 'orderAZ'){
             dispatch(orderByAZ())
@@ -55,17 +55,17 @@ export default function Cards() {
                     </div>
                 </div>
                 <div className='options'>
-                        <select onChange={handleSortName}>
+                        <select className='select' onChange={handleSortName}>
                             <option value="" selected="selected" select disabled>Sort by name</option>
                             <option value='orderAZ'>Sort A-Z</option>
                             <option value='orderZA'>Sort Z-A</option>
                         </select>
-                        <select onChange={handleSortWeight}>
+                        <select className='select' onChange={handleSortWeight}>
                             <option value="" selected="selected" select disabled>Sort by weight</option>
                             <option value='weightAsc'>Ascendant</option>
                             <option value='weightDesc'>Descendant</option>
                         </select>
-                        <select onChange={handleFilters}>
+                        <select className='select' onChange={handleFilters}>
                             <option value="allBreeds" selected="selected">Breeds</option>
                             <option value='breedsApi'>API breeds</option>
                             <option value='breedsDB'>Created</option>

@@ -104,7 +104,7 @@ export default function CreateBreed() {
 
     return (
         <div className='containerForm'>
-            <div>
+            <div className='containerBtnHome'>
                 <Link to={'/home'}>
                     <button className="btnHome"> Home </button>
                 </Link>
@@ -121,7 +121,7 @@ export default function CreateBreed() {
                 <input autoComplete='off' className='inputStyle' type="text" name='minWeight' value={input.minWeight} onChange={handleChange}  />
                 <label> Max: </label>
                 <input autoComplete='off' className='inputStyle' type="text" name='maxWeight' value={input.maxWeight} onChange={handleChange} />
-                {errors.weight && (<p className='danger'>{errors.weight}</p>)}
+                {errors.weight && (<h6 className='danger'>{errors.weight}</h6>)}
             </div>
             <div>
                 <h4>Height (cm) </h4>
@@ -129,7 +129,7 @@ export default function CreateBreed() {
                 <input autoComplete='off' className='inputStyle' type="text" name='minHeight' value={input.minHeight} onChange={handleChange} />
                 <label> Max:  </label>
                 <input autoComplete='off' className='inputStyle' type="text" name='maxHeight' value={input.maxHeight} onChange={handleChange} />
-                {errors.height && (<p className='danger'>{errors.height}</p>)}
+                {errors.height && (<h6 className='danger'>{errors.height}</h6>)}
             </div>
             <div>
                 <h4>Life span (years) </h4>
@@ -137,12 +137,12 @@ export default function CreateBreed() {
                 <input autoComplete='off' className='inputStyle' type='text' name='minAge' max='35' value={input.minAge} onChange={handleChange} />
                 <label> Max: </label>
                 <input autoComplete='off' className='inputStyle' type='text' name='maxAge' max='35' value={input.maxAge} onChange={handleChange} />
-                {errors.age && (<p className='danger'>{errors.age}</p>)}
+                {errors.age && (<h6 className='danger'>{errors.age}</h6>)}
             </div>
             <div>
                 <label>Image url: </label>
                 <input autoComplete='off' className='inputStyle' type='text' name='img' placeholder='Paste your image link...' value={input.img} onChange={handleChange} />
-                {errors.img && (<p className='danger'>{errors.img}</p>)}
+                {errors.img && (<h6 className='danger'>{errors.img}</h6>)}
             </div>
             <div>
                 <label>Temperaments  </label>

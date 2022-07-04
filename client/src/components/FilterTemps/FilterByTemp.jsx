@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import {useSelector, useDispatch } from 'react-redux';
-import { filterByTemp , getAllTemperaments, setPage  } from '../../actions/index';
+import {useDispatch } from 'react-redux';
+import { filterByTemp , getAllTemperaments  } from '../../actions/index';
 import './FilterByTemp.css';
 
 export default function FilterTemps() {
-    const allTemps = useSelector((state) => state.temperaments);
+    // const allTemps = useSelector((state) => state.temperaments);
     const [input,setInput] = useState('');
     const dispatch = useDispatch();
 

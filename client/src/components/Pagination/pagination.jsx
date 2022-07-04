@@ -9,7 +9,7 @@ import imageLoader from '../../img/loader.gif'
 export default function Pagination() {
 
     const dispatch = useDispatch();
-    const [, /*refreshState*/ setRefreshState] = useState(false);
+    // const [, /*refreshState*/ setRefreshState] = useState(false);
     const breeds = useSelector(state => state.breeds)
     let allBreeds = [...breeds]
     const numPages = Math.ceil(breeds.length/8)
@@ -131,7 +131,7 @@ export default function Pagination() {
             <div>
                 <div className='containerNF'>
                     <div className='notFound'>No breeds found...</div>
-                    <div className='img'><img className='imgDog' src={imageDog}></img></div>
+                    <div className='img'><img className='imgDog' alt='dog' src={imageDog}></img></div>
                 </div>
             </div>
         )
